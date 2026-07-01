@@ -1,0 +1,22 @@
+# Hand-written namespace (kept in sync with the @import tags in R/*.R).
+# dplyr is imported BEFORE data.table on purpose: data.table then masks the
+# few overlapping names (first/last/between/:=), reproducing the load order of
+# the original script (library(tidyverse) then library(data.table)).
+
+export(run_pipeline)
+export(build_adrc)
+export(make_cohort_plots)
+export("%>%")
+
+import(dplyr)
+import(tidyr)
+import(stringr)
+import(purrr)
+import(ggplot2)
+import(data.table)
+
+importFrom(magrittr, "%>%")
+importFrom(psych, describe)
+importFrom(rlang, .data)
+importFrom(stats, lm, coef, sd, cor)
+importFrom(utils, read.csv, write.csv, head)

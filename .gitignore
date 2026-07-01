@@ -1,0 +1,22 @@
+# ---------------------------------------------------------------------------
+# HIPAA SAFETY: never commit participant data or pipeline outputs.
+# Everything in data/ is ignored except its README. outputs/ is ignored too.
+# ---------------------------------------------------------------------------
+data/*
+!data/README.md
+outputs/
+*.csv
+*.edf
+*.RData
+*.rds
+
+# R / RStudio cruft
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+
+# build artifacts
+*.tar.gz
+*.Rcheck/

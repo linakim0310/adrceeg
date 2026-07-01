@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^run_analysis\.R$
+^data$
+^outputs$
+^LICENSE\.md$
+^README\.md$
+^\.github$
+^\.DS_Store$
+^data-raw$
