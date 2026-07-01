@@ -14,7 +14,7 @@ tryCatch(utils::globalVariables(c(
   "mr_vol_r_hippocampus", "mr_vol_l_hippocampus", "MR_TOTV_HIPPOCAMPUS",
   "mr_vol_tot_intracranial", "hippvol",
   # demographics / genetics / clinical
-  "BIRTH", "EDUC", "sex", "SEX", "id", "apoe", "apoe_bin", "apoe_3", "apoe_fin",
+  "BIRTH", "EDUC", "sex", "SEX", "id", "apoe", "apoe_bin", "apoe_e4_count", "apoe_fin",
   "cdr", "TESTDATE", "cdr_date", "cdr_bin", "cdrglob", "dates", "datediff",
   "count", "visit", "visitage", "tau",
   # z-scores / visit meta

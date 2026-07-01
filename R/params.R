@@ -139,7 +139,7 @@ adrc_params <- list(
     carrier_binary = c("33" = "0", "34" = "1", "23" = "0",
                        "24" = "1", "44" = "1", "22" = "0"),
 
-    # apoe_3: e4 DOSAGE (how many e4 alleles). 0, 1, or 2.
+    # apoe_e4_count: e4 DOSAGE (how many e4 alleles). 0, 1, or 2.
     #   33/23/22 -> 0 copies    34/24 -> 1 copy    44 -> 2 copies
     e4_allele_count = c("33" = "0", "34" = "1", "23" = "0",
                         "24" = "1", "44" = "2", "22" = "0"),

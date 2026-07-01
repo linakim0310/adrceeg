@@ -14,7 +14,7 @@
 factorise_vars <- function(ADRC) {
   ADRC %>%
     mutate(ID = as.factor(ID), apoe_bin = as.factor(apoe_bin), SEX = as.factor(SEX),
-           apoe_3 = as.factor(apoe_3), apoe_fin = as.factor(apoe_fin))
+           apoe_e4_count = as.factor(apoe_e4_count), apoe_fin = as.factor(apoe_fin))
 }
 
 #' z-score each biomarker relative to the unimpaired (CDR 0) controls

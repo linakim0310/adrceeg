@@ -30,7 +30,7 @@ add_demographics <- function(imaging, data_dir, params = adrc_params) {
 
 #' Add APOE genotype and its recoded classifications
 #'
-#' The three recoded variables (apoe_bin, apoe_3, apoe_fin) are produced by
+#' The three recoded variables (apoe_bin, apoe_e4_count, apoe_fin) are produced by
 #' str_replace_all() using the maps in params$apoe. See params.R for a full
 #' explanation of what each one means (e4 carrier flag, e4 dosage, 3-level risk).
 #' @param df Working data.frame.
@@ -47,7 +47,7 @@ add_apoe <- function(df, data_dir, params = adrc_params) {
     ID       = norm_id(raw[[cfg$id]]),
     apoe     = apoe_chr,
     apoe_bin = str_replace_all(apoe_chr, m$carrier_binary),   # e4 carrier: 0/1
-    apoe_3   = str_replace_all(apoe_chr, m$e4_allele_count),  # e4 dosage: 0/1/2
+    apoe_e4_count   = str_replace_all(apoe_chr, m$e4_allele_count),  # e4 dosage: 0/1/2
     apoe_fin = str_replace_all(apoe_chr, m$dominant_allele),  # 3-level risk
     stringsAsFactors = FALSE
   )
@@ -105,7 +105,7 @@ fill_and_finalize <- function(df) {
     arrange(mri_date) %>%
     fill(apoe, .direction = "downup") %>%
     fill(apoe_bin, .direction = "downup") %>%
-    fill(apoe_3, .direction = "downup") %>%
+    fill(apoe_e4_count, .direction = "downup") %>%
     fill(BIRTH, .direction = "downup") %>%
     fill(EDUC, .direction = "downup") %>%
     fill(SEX, .direction = "downup") %>%
@@ -114,5 +114,5 @@ fill_and_finalize <- function(df) {
            tau = Tauopathy) %>%
     ungroup() %>%
     select(ID, mri_date, visit, EDUC, SEX, visitage, cdrglob, cdr_bin,
-           apoe, apoe_bin, apoe_3, apoe_fin, cort_sig, pib, hippvol, FDG, tau)
+           apoe, apoe_bin, apoe_e4_count, apoe_fin, cort_sig, pib, hippvol, FDG, tau)
 }
