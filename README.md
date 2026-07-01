@@ -27,10 +27,10 @@ dependencies, sources everything in `R/`, and runs the pipeline. Results land in
 
 ```r
 install.packages("devtools")
-devtools::install("path/to/adrceeg")   # or install_github("<you>/adrceeg")
+devtools::install_github("Harshu-Pande/adrceeg")
 library(adrceeg)
-
-eeg <- run_pipeline(data_dir = "path/to/your/ADRC_csvs")
+run_pipeline(data_dir = "path/to/synthetic_data",
+             out_dir  = "path/to/outputs")
 ```
 
 Either way the entry point is the same function, `run_pipeline()`.
