@@ -22,5 +22,7 @@ tryCatch(utils::globalVariables(c(
   # PACC / BAG
   "K1", "psy_date", "PACC", "pacc_gap_yrs", "n_pacc", "mapid", "MAPID",
   # plotting
-  "group", "pct_present", "variable", "set", "biomarker", "z", "Var1", "Var2", "r"
+  "group", "pct_present", "variable", "set", "biomarker", "z", "Var1", "Var2", "r",
+  # the central config object (defined in params.R, read by every function)
+  "adrc_params"
 )), error = function(e) invisible(NULL))

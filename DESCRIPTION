@@ -29,9 +29,9 @@ Imports:
     purrr,
     ggplot2,
     data.table,
-    psych,
     rlang,
     stats,
     utils
 Suggests:
-    here
+    here,
+    export

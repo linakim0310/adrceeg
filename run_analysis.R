@@ -19,10 +19,17 @@
 options(pkgType = "binary")  # avoid the source-compile prompt on a fresh Mac
 
 if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
-pacman::p_load(magrittr, tidyverse, data.table, psych, rlang, here)
+pacman::p_load(magrittr, tidyverse, data.table, rlang, here)
 
-# Source every function file in R/. They are all plain definitions, so order
-# does not matter -- each one finds the others once all are loaded.
+# 'export' is optional: it collects all the figures into one editable PowerPoint
+# deck (outputs/cohort_figures.pptx). If it can't be installed the pipeline still
+# runs and just writes the image files (and logs a note). Comment out to skip.
+try(pacman::p_load(export), silent = TRUE)
+
+# Source every function file in R/ -- this includes params.R, which defines
+# adrc_params (all the file names, columns, thresholds and plot settings). Edit
+# params.R to change any of those. Order doesn't matter: each definition finds
+# the others once all are loaded, and params are read when the pipeline runs.
 r_files <- list.files(here::here("R"), pattern = "[.][Rr]$", full.names = TRUE)
 invisible(lapply(r_files, source))
 

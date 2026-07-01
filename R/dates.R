@@ -73,18 +73,22 @@ check_dates <- function(path, date_cols) {
 
 #' Run the pre-load date sanity check across all ADRC files
 #'
+#' File names and the date columns to validate are read from params, so this
+#' stays correct if a file or column gets renamed in params.R.
 #' @param data_dir Folder containing the ADRC CSV exports.
+#' @param params Config list (default `adrc_params`).
 #' @return Invisibly NULL.
 #' @keywords internal
-check_all_dates <- function(data_dir) {
+check_all_dates <- function(data_dir, params = adrc_params) {
   cat("Checking date formats in the CSV files...\n")
-  check_dates(file.path(data_dir, "pib.csv"),          c("PET_Date", "Processed_with_MR_Date"))
-  check_dates(file.path(data_dir, "fdg.csv"),          c("PET_Date", "Processed_with_MR_Date"))
-  check_dates(file.path(data_dir, "tau.csv"),          c("PET_Date", "Processed_with_MR_Date"))
-  check_dates(file.path(data_dir, "mri_3t.csv"),       c("MR_Date"))
-  check_dates(file.path(data_dir, "demographics.csv"), c("BIRTH"))
-  check_dates(file.path(data_dir, "b4_cdr.csv"),       c("TESTDATE"))
-  check_dates(file.path(data_dir, "psychometrics.csv"), c("psy_date"))
+  f <- params$files; co <- params$cols
+  check_dates(file.path(data_dir, f$pib),          c(co$pib$pet_date, co$pib$mri_date))
+  check_dates(file.path(data_dir, f$fdg),          c(co$fdg$pet_date, co$fdg$mri_date))
+  check_dates(file.path(data_dir, f$tau),          c(co$tau$pet_date, co$tau$mri_date))
+  check_dates(file.path(data_dir, f$mri),          c(co$mri$mr_date))
+  check_dates(file.path(data_dir, f$demographics), c(co$demographics$birth))
+  check_dates(file.path(data_dir, f$cdr),          c(co$cdr$testdate))
+  check_dates(file.path(data_dir, f$pacc),         c(co$pacc$date))
   cat("Date check done.\n\n")
   invisible()
 }

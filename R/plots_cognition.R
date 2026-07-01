@@ -1,25 +1,27 @@
 # ----------------------------------------------------------------------------
 # STAGE 3 figures 12-14: PACC cognition. Guarded so the pipeline still runs on
-# datasets without psychometrics.csv. Lower PACC = worse cognition.
+# datasets without the psychometrics file. Lower PACC = worse cognition.
+# Titles come from params$plots$titles; figures written via save_figure().
 # ----------------------------------------------------------------------------
 
 #' Write the PACC cognition figures (12-14) when PACC is present
 #' @param adrc_base Baseline rows from [build_adrc_base()].
 #' @param bm_labels Named biomarker label vector.
 #' @param grp_pal Group colour palette.
-#' @param out_dir Output folder for PNGs.
+#' @param out_dir Output folder.
+#' @param params Config list (default `adrc_params`).
 #' @keywords internal
-plot_cognition <- function(adrc_base, bm_labels, grp_pal, out_dir) {
+plot_cognition <- function(adrc_base, bm_labels, grp_pal, out_dir, params = adrc_params) {
   if (!("PACC" %in% names(adrc_base) && any(!is.na(adrc_base$PACC)))) return(invisible())
+  ttl <- params$plots$titles
 
   p_pacc_grp <- adrc_base %>%
     filter(!is.na(PACC)) %>%
     ggplot(aes(group, PACC, fill = group)) +
     geom_boxplot(width = 0.5, outlier.size = 0.6) +
     scale_fill_manual(values = grp_pal, guide = "none") +
-    labs(title = "Cognition (PACC) by impairment group",
-         subtitle = "lower PACC = worse cognition", x = NULL, y = "PACC")
-  ggsave(file.path(out_dir, "12_pacc_by_group.png"), p_pacc_grp, width = 6, height = 5, dpi = 150)
+    labs(title = ttl$pacc_group, subtitle = ttl$pacc_group_sub, x = NULL, y = "PACC")
+  save_figure(p_pacc_grp, "12_pacc_by_group", out_dir, 6, 5, params)
 
   p_pacc_age <- adrc_base %>%
     filter(!is.na(PACC)) %>%
@@ -27,8 +29,8 @@ plot_cognition <- function(adrc_base, bm_labels, grp_pal, out_dir) {
     geom_point(alpha = 0.7, size = 1.8) +
     geom_smooth(method = "lm", se = FALSE) +
     scale_color_manual(values = grp_pal, name = NULL) +
-    labs(title = "Cognition (PACC) vs age", x = "Age (years)", y = "PACC")
-  ggsave(file.path(out_dir, "13_pacc_vs_age.png"), p_pacc_age, width = 7, height = 5, dpi = 150)
+    labs(title = ttl$pacc_age, x = "Age (years)", y = "PACC")
+  save_figure(p_pacc_age, "13_pacc_vs_age", out_dir, 7, 5, params)
 
   pacc_long <- adrc_base %>%
     select(group, PACC, all_of(names(bm_labels))) %>%
@@ -40,8 +42,8 @@ plot_cognition <- function(adrc_base, bm_labels, grp_pal, out_dir) {
     geom_smooth(method = "lm", se = FALSE) +
     scale_color_manual(values = grp_pal, name = NULL) +
     facet_wrap(~ biomarker, scales = "free_x") +
-    labs(title = "Cognition (PACC) vs AD biomarkers", x = "Biomarker (z-score)", y = "PACC")
-  ggsave(file.path(out_dir, "14_pacc_vs_biomarkers.png"), p_pacc_bm, width = 9, height = 6, dpi = 150)
+    labs(title = ttl$pacc_biomarkers, x = "Biomarker (z-score)", y = "PACC")
+  save_figure(p_pacc_bm, "14_pacc_vs_biomarkers", out_dir, 9, 6, params)
 
   cat("PACC figures (12-14) written.\n")
   invisible()

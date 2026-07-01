@@ -17,9 +17,8 @@
 #' @import purrr
 #' @import ggplot2
 #' @import data.table
-#' @importFrom psych describe
 #' @importFrom rlang .data
-#' @importFrom stats lm coef sd cor
+#' @importFrom stats lm coef sd cor setNames
 #' @importFrom utils read.csv write.csv head
 "_PACKAGE"
 
